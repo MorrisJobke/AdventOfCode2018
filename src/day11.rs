@@ -92,15 +92,15 @@ fn main() {
     let mut max_total_size = 0;
     let now = Instant::now();
 
-    for square_size in 1..(size + 1) {
-        print!("Checking {} …", square_size);
-        for y in 0..(size + 1 - square_size) {
-            for x in 0..(size + 1 - square_size) {
+    for square_size in 0..size {
+        print!("Checking {} …", square_size + 1);
+        for y in 0..(size + 1 - (square_size + 1)) {
+            for x in 0..(size + 1 - (square_size + 1)) {
 
                 /* old way - naive implementation
                 let mut total = 0;
-                for i in 0..square_size {
-                    for j in 0..square_size {
+                for i in 0..(square_size + 1) {
+                    for j in 0..(square_size + 1) {
                         total = total + field[y + j][x + i];
                     }
                 }
@@ -109,17 +109,17 @@ fn main() {
                 /* new way  - Summed-area table */
                 let mut a = 0;
                 if y > 0 && x > 0 {
-                    a = field[y - 1                  ][x - 1                  ];
+                    a = field[y - 1              ][x - 1              ];
                 }
                 let mut b = 0;
                 if y > 0 {
-                    b = field[y - 1                  ][x     + square_size - 1];
+                    b = field[y - 1              ][x     + square_size];
                 }
                 let mut c = 0;
                 if x > 0 {
-                    c = field[y     + square_size - 1][x - 1                  ];
+                    c = field[y     + square_size][x - 1              ];
                 }
-                let d = field[y     + square_size - 1][x     + square_size - 1];
+                let d = field[y     + square_size][x     + square_size];
 
                 let mut total = a - b - c + d;
 
@@ -132,7 +132,7 @@ fn main() {
                     max_total = total;
                     max_position_x = x + 1;
                     max_position_y = y + 1;
-                    max_total_size = square_size;
+                    max_total_size = square_size + 1;
                 }
             }
         }
