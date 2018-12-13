@@ -7,6 +7,7 @@ fn main() {
     let filename = "data/12.txt";
 
     println!("Read from file {}", filename);
+    let begin = Instant::now();
     let now = Instant::now();
 
     let mut f = File::open(filename).expect("file not found");
@@ -49,7 +50,6 @@ fn main() {
     println!("                                                              0         0         0         0         0         0         0         0");
     println!("generation:          0, min: {}, max: {}, offset: {:10} {}",  min, max, offset, plants);
 
-    let generations: i64 = 20;
     let generations: i64 = 50000000000;
     let now = Instant::now();
     let mut happened_already = false;
@@ -135,4 +135,6 @@ fn main() {
     }
     println!("");
     println!("The sum is {}.", sum);
+    println!("Finished in {}.{} seconds.", begin.elapsed().as_secs(), begin.elapsed().subsec_millis());
+
 }
