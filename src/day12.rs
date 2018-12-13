@@ -19,7 +19,7 @@ fn main() {
     let mut line_number = 0;
     let mut plants = String::from("....................");
     let mut patterns = HashMap::new();
-    let offset = 20;
+    let offset = -20;
     let mut min = 0;
     let mut max = 0;
     let debug = true;
@@ -59,7 +59,7 @@ fn main() {
         let mut new_plants = plants.clone();
 
         for j in (min - 3)..(max + 2) {
-            let start = (j + offset) as usize;
+            let start = (j - offset) as usize;
             let end = start + 5;
             let pattern = &plants[start..end];
             let position = j + 2;
@@ -79,7 +79,7 @@ fn main() {
             }
         }
 
-        min = new_plants.find('#').unwrap() as i32 - offset;
+        min = new_plants.find('#').unwrap() as i32 + offset;
 
         if g < 40 {
             println!(" {}", new_plants);
@@ -92,7 +92,7 @@ fn main() {
     println!("Finished iterating in {}.{} seconds.", now.elapsed().as_secs(), now.elapsed().subsec_millis());
 
     let mut sum = 0;
-    let mut position = 0 - (offset + 1);
+    let mut position = offset - 1;
     for c in plants.chars() {
         position += 1;
         if c == '#' {
